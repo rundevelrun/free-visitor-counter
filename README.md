@@ -1,70 +1,122 @@
-# Getting Started with Create React App
+# @rundevelrun/free-visitor-counter
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+무료 방문자 카운터 React 컴포넌트입니다. 이 패키지는 [free-visit-counter-api-dashboard](https://github.com/rundevelrun/free-visit-counter-api-dashboard)를 활용하여 웹사이트의 방문자 수를 추적하고 표시합니다.
 
-## Available Scripts
+## 설치
 
-In the project directory, you can run:
+```bash
+npm install @rundevelrun/free-visitor-counter
+# 또는
+yarn add @rundevelrun/free-visitor-counter
+```
 
-### `npm start`
+## 사용법
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 기본 사용법
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```jsx
+import { FreeVisitorCounter } from '@rundevelrun/free-visitor-counter';
 
-### `npm test`
+function MyComponent() {
+return (
+<div>
+<h1>내 웹사이트</h1>
+<FreeVisitorCounter />
+</div>
+);
+}
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 커스텀 스타일 적용
 
-### `npm run build`
+```jsx
+import { FreeVisitorCounter } from '@rundevelrun/free-visitor-counter';
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+function MyComponent() {
+return (
+<div>
+<h1>내 웹사이트</h1>
+<FreeVisitorCounter
+totalCountPrefix="총 방문자: "
+todayCountPrefix="오늘 방문자: "
+separator=" | "
+style={{
+color: 'blue',
+fontWeight: 'bold'
+}}
+/>
+</div>
+);
+}
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Gatsby에서 사용하기
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```jsx
+import { FreeVisitorCounter } from '@rundevelrun/free-visitor-counter';
 
-### `npm run eject`
+export default function IndexPage() {
+return (
+<main>
+<h1>Gatsby 사이트</h1>
+<FreeVisitorCounter
+totalCountPrefix="총 방문자: "
+todayCountPrefix="오늘 방문자: "
+/>
+</main>
+);
+}
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 데이터 로드 이벤트 처리
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```jsx
+import { FreeVisitorCounter } from '@rundevelrun/free-visitor-counter';
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+function MyComponent() {
+const handleCounterLoad = (data) => {
+console.log('방문자 데이터:', data);
+// 추가 로직 구현
+};
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+return (
+<div>
+<h1>내 웹사이트</h1>
+<FreeVisitorCounter
+onLoad={handleCounterLoad}
+/>
+</div>
+);
+}
+```
 
-## Learn More
+## Props
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+| Prop | 타입 | 기본값 | 설명 |
+|------|------|--------|------|
+| totalCountPrefix | string | 'Total: ' | 총 방문자 수 앞에 표시할 텍스트 |
+| totalCountSuffix | string | '' | 총 방문자 수 뒤에 표시할 텍스트 |
+| todayCountPrefix | string | 'Today: ' | 오늘 방문자 수 앞에 표시할 텍스트 |
+| todayCountSuffix | string | '' | 오늘 방문자 수 뒤에 표시할 텍스트 |
+| separator | string | ' \| ' | 총 방문자 수와 오늘 방문자 수 사이의 구분자 (줄바꿈은 '\n'으로 지정) |
+| showTotalFirst | boolean | true | true면 총 방문자 수를 먼저 표시, false면 오늘 방문자 수를 먼저 표시 |
+| style | object | {} | 컴포넌트에 적용할 인라인 스타일 |
+| className | string | '' | 컴포넌트에 적용할 CSS 클래스 |
+| onLoad | function | undefined | 방문자 데이터가 로드되었을 때 호출될 콜백 함수 |
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 작동 방식
 
-### Code Splitting
+이 컴포넌트는 페이지가 로드될 때 자동으로 방문자 카운터 API에 요청을 보냅니다. 요청에는 다음 정보가 포함됩니다:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- 현재 도메인
+- 사용자의 타임존
+- 현재 페이지 경로
+- 현재 페이지 제목
+- 리퍼러 URL
+- 검색 엔진에서 온 경우 검색어
 
-### Analyzing the Bundle Size
+localhost 또는 127.0.0.1에서 테스트할 경우, API 요청을 보내지 않고 샘플 데이터를 반환합니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 라이센스
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+MIT
