@@ -71,7 +71,7 @@ export const FreeVisitorCounter: React.FC<FreeVisitorCounterProps> = ({
                 }
 
                 // For localhost or 127.0.0.1, return sample data
-                /*if (domain === "localhost" || domain === "127.0.0.1") {
+                if (domain === "localhost" || domain === "127.0.0.1") {
                     const sampleData = {
                         dashboardUrl: "https://visitor.6developer.com/dashboard?domain=sample.com",
                         totalCount: 99999,
@@ -81,7 +81,7 @@ export const FreeVisitorCounter: React.FC<FreeVisitorCounterProps> = ({
                     if (onLoad) onLoad(sampleData)
                     setIsLoading(false)
                     return
-                }*/
+                }
 
                 // Make API request
                 const response = await fetch("https://visitor.6developer.com/visit", {
