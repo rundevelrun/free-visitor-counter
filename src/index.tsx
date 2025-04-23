@@ -84,7 +84,7 @@ export const FreeVisitorCounter: React.FC<FreeVisitorCounterProps> = ({
                 }
 
                 // Make API request
-                const response = await fetch("http://visitor.6developer.com/visitor", {
+                const response = await fetch("https://visitor.6developer.com/visitor", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
