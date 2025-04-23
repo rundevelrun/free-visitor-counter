@@ -74,7 +74,7 @@ export const FreeVisitorCounter: React.FC<FreeVisitorCounterProps> = ({
                 if (domain === "localhost" || domain === "127.0.0.1") {
                     const sampleData = {
                         dashboardUrl: "https://visitor.6developer.com/dashboard?domain=sample.com",
-                        totalCount: 999999,
+                        totalCount: 99999,
                         todayCount: 999,
                     }
                     setCounterData(sampleData)
